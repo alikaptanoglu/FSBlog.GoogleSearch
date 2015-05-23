@@ -48,9 +48,10 @@ namespace FSBlog.GoogleSearch.ConsoleTest
         }
         private static void IssueSearchRequestAndShowTopXResults(string query, int limit) {
             var client = new SearchClient(query);
+
             foreach (var hit in client.Query().Take(limit))
             {
-                ConsoleHelper.PrintSearchResultHit(hit);
+                Console.WriteLine(hit);
             }
         }
         private static bool PackOfTenReached(int hitCounter)
