@@ -23,15 +23,17 @@ namespace FSBlog.GoogleSearch.ConsoleTest
             var msg = String.Format("Querying Google: {0}", query);
             WriteLineToConsole(msg, ConsoleColor.Green);
         }
-        public static void PrintSearchResultHit(SearchResultHit hit, int hitCounter) {
-            // format search hit
-            var hitCounterTitle = String.Format("{0}Result #{1}: ", Environment.NewLine, hitCounter);
-            var hitLink = String.Format("[{0}]", hit.CleanUri);
+        public static void PrintSearchResultHit(SearchResultHit hit) {
+            var hitLink = String.Format("[{0}]{1}", hit.CleanUri, Environment.NewLine);
 
-            // print
-            WriteToConsole(hitCounterTitle);
             WriteLineToConsole(hit.Text, ConsoleColor.Yellow);
             WriteLineToConsole(hitLink);
+        }
+        public static void PrintSearchResultHit(SearchResultHit hit, int hitCounter) {
+            var hitCounterTitle = String.Format("{0}Result #{1}: ", Environment.NewLine, hitCounter);
+            WriteToConsole(hitCounterTitle);
+
+            PrintSearchResultHit(hit);
         }
         public static string PromptForSearchQuery() {
             WriteToConsole("Enter search query: ", PROMPT_CONSOLE_COLOR);

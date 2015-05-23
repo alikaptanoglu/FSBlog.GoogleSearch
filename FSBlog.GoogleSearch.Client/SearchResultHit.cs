@@ -26,5 +26,11 @@ namespace FSBlog.GoogleSearch.GoogleClient
         public Uri Uri      { get { return _uri; } }
         public Uri CleanUri { get { return _cleanUri; } }
         public string Text  { get { return _text; } }
+
+        // PUBLIC METHODS
+        public override string ToString()
+        {
+            return String.Format("{0}{1}[{2}]", Text, Environment.NewLine, CleanUri);
+        }
     }
 }

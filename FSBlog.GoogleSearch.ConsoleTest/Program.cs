@@ -14,12 +14,12 @@ namespace FSBlog.GoogleSearch.ConsoleTest
         {
             // welcome and prompt user for search query
             ConsoleHelper.PrintWelcome();
-            var searchQuery = ConsoleHelper.PromptForSearchQuery();
+            var query = ConsoleHelper.PromptForSearchQuery();
             
             // validate input
-            if (!String.IsNullOrWhiteSpace(searchQuery))
+            if (!String.IsNullOrWhiteSpace(query))
             {
-                IssueSearchRequestAndShowResults(searchQuery);
+                IssueSearchRequestAndShowResults(query);
             }
 
             // show exit prompt
@@ -44,6 +44,13 @@ namespace FSBlog.GoogleSearch.ConsoleTest
                 {
                     break;
                 }
+            }
+        }
+        private static void IssueSearchRequestAndShowTopXResults(string query, int limit) {
+            var client = new SearchClient(query);
+            foreach (var hit in client.Query().Take(limit))
+            {
+                ConsoleHelper.PrintSearchResultHit(hit);
             }
         }
         private static bool PackOfTenReached(int hitCounter)
