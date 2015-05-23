@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 
 namespace FSBlog.GoogleSearch.GoogleClient
 {
-    class SearchResultParser
+    internal static class SearchResultParser
     {
         // PRIVATE MEMBERS
         private static readonly Regex RX_SEARCH_HITS = new Regex(@"<h3 class=""r""><a href=""/.*?\?q=(.*?)"">(.*?)</a>", RegexOptions.IgnoreCase);
 
         // PUBLIC METHODS
         public static IList<SearchResultHit> Parse(string response) {
+            // preparing the containers for the search hits
             var hits = new List<SearchResultHit>();
+            
+            // iterate over matches, processing each into a SearchResultHit
             var matches = RX_SEARCH_HITS.Match(response);
-
-            while (matches.Success && matches.Groups.Count == 3) {
+            while (matches.Success && matches.Groups.Count == 3)
+            {
                 var uriString = matches.Groups[1].Value;
 
                 Uri uri;
@@ -35,6 +38,7 @@ namespace FSBlog.GoogleSearch.GoogleClient
                 matches = matches.NextMatch();
             }
 
+            // done
             return hits;
         }
     }
